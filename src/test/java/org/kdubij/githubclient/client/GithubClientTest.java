@@ -3,13 +3,12 @@ package org.kdubij.githubclient.client;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kdubij.githubclient.GithubAssertions;
 import org.kdubij.githubclient.client.exception.client.GithubClientConnectionException;
 import org.kdubij.githubclient.client.exception.client.GithubClientException;
 import org.kdubij.githubclient.client.exception.client.GithubRepoNotFoundException;
 import org.kdubij.githubclient.client.exception.server.GithubServerException;
 import org.kdubij.githubclient.client.exception.server.GithubServiceUnavailableException;
-import org.kdubij.githubclient.model.GithubDto;
+import org.kdubij.githubclient.client.model.GithubResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
@@ -62,10 +61,10 @@ public class GithubClientTest {
                 .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(GithubClientTestHelper.getGithubJson(), MediaType.APPLICATION_JSON));
 
-        GithubDto dto = githubClient.getRepository(OWNER, REPO_NAME);
+        GithubResponseDto dto = githubClient.getRepository(OWNER, REPO_NAME);
 
         mockServer.verify();
-        GithubAssertions.assertDto(dto)
+        GithubResponseAssertions.assertDto(dto)
                 .withCloneUrl(CLONE_URL)
                 .withCreatedAt(CREATED_AT)
                 .withDescription(REPOSITORY_DESCRIPTION)

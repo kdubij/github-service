@@ -7,7 +7,7 @@ import org.kdubij.githubclient.client.exception.client.GithubClientException;
 import org.kdubij.githubclient.client.exception.client.GithubRepoNotFoundException;
 import org.kdubij.githubclient.client.exception.server.GithubServerException;
 import org.kdubij.githubclient.client.exception.server.GithubServiceUnavailableException;
-import org.kdubij.githubclient.model.GithubDto;
+import org.kdubij.githubclient.client.model.GithubResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -35,19 +35,19 @@ public class GithubClient {
     /**
      * @param owner          owner of repository
      * @param repositoryName name of repository
-     * @return found {@link GithubDto}
+     * @return found github repository {@link GithubResponseDto}
      * @throws GithubClientConnectionException   if cannot connect with resource
      * @throws GithubRepoNotFoundException       if repository not found
      * @throws GithubClientException             if others clients exceptions occurs
      * @throws GithubServiceUnavailableException if service is unavailable
      * @throws GithubServerException             if other server errors occurs
      */
-    public GithubDto getRepository(String owner, String repositoryName) {
-        GithubDto result = null;
+    public GithubResponseDto getRepository(String owner, String repositoryName) {
+        GithubResponseDto result = null;
         String requestUrl = createRequestUrl(owner, repositoryName);
         logger.info("Sending request to github api for repository: {}, owned by: {} , url: {}", repositoryName, owner, requestUrl);
         try {
-            result = restTemplate.getForEntity(requestUrl, GithubDto.class).getBody();
+            result = restTemplate.getForEntity(requestUrl, GithubResponseDto.class).getBody();
         } catch (ResourceAccessException e) {
             handleResourceAccessException(e);
         } catch (HttpClientErrorException e) {

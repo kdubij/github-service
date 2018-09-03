@@ -2,7 +2,6 @@ package org.kdubij.githubclient.api;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kdubij.githubclient.GithubAssertions;
 import org.kdubij.githubclient.api.exception.ErrorCode;
 import org.kdubij.githubclient.api.exception.ErrorResponseDto;
 import org.kdubij.githubclient.client.exception.client.GithubClientConnectionException;

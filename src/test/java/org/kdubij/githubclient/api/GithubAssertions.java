@@ -1,4 +1,4 @@
-package org.kdubij.githubclient;
+package org.kdubij.githubclient.api;
 
 import org.kdubij.githubclient.model.GithubDto;
 import org.springframework.http.HttpStatus;
